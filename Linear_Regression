@@ -1,2 +1,72 @@
 ###Linear Regression and Gradient Descent.
 
+### import the library you need for analyze
+
+import pandas as pd 
+import numpy as np 
+import matplotlib.pyplot as plt
+import sklearn as sns
+
+###import database
+###data:
+6.1101,17.592
+5.5277,9.1302
+8.5186,13.662
+7.0032,11.854
+5.8598,6.8233
+8.3829,11.886
+7.4764,4.3483
+8.5781,12
+6.4862,6.5987
+....
+
+
+###load data
+data = np.loadtxt("E:/machine_learning/data.csv", delimiter=',')
+X = np._c[np.ones(data.shape[0], data[:,0])
+y = np._c[data[:,1]]
+
+###plot dotplot
+plt.scatter(X[:,1],y,s=30,c='r',marker='x',linewidths=1)
+plt.xlim(4,24)
+plt.xlabel('Population')
+plt.ylabel('Profit in $10,000')
+
+###write cost function
+def computCost(X, y, theta=[[0],[0]]):
+    m=y.size
+    h=X.dot(theta)
+    
+    J=1.0/(2*m)*(np.sum(np.square( h - y))
+    return J
+
+
+###check the function is well.
+computCost(X,y)   
+
+###write the gradient descent function
+def gradDes (X, y, alpha= 0.01, theta=[[0], [0]], num_iters=1500):
+    m = y.size
+    J_history = np.zeros(num_iters)
+    
+    for iter in np.arange(num_iters):
+        h = X.dot(theta)
+        theta = theta - alpha*(1.0/m)*(X.T.dot(h-y))
+        J_history[iter] = computCost(X, y, theta)
+    return(theta,J_history)
+    
+###plot gradient descent
+theta, CostJ = gradDes(X, y)
+print(theta, theta.ravel())
+
+plt.plot(CostJ)
+plt.ylabel('CostJ')
+plt.xlabel('Itera')
+
+
+        
+        
+    
+
+
+    
