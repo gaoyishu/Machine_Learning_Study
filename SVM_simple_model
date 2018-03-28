@@ -1,0 +1,48 @@
+%matplotlib inline
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+
+from sklearn.datasets.samples_generator import make_blobs
+X, y = make_blobs(n_samples=50, centers=2,
+                  random_state=0, cluster_std=0.60)
+plt.figure(figsize=(8,8))
+plt.scatter(X[:, 0], X[:, 1], c=y, s=50);
+
+X
+array([[ 1.41281595,  1.5303347 ],
+       [ 1.81336135,  1.6311307 ],
+       [ 1.43289271,  4.37679234],
+       [ 1.87271752,  4.18069237],
+       [ 2.09517785,  1.0791468 ],
+       [ 2.73890793,  0.15676817],
+       [ 3.18515794,  0.08900822]])
+y
+array([1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1,
+       1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1,
+       1, 0, 1, 0])
+
+
+from sklearn.svm import SVC
+clf = SVC(kernel='linear')
+clf.fit(X,y)
+
+def plot_svc_decision_function(clf, ax=None):
+    """Plot the decision function for a 2D SVC"""
+    if ax is None:
+        ax = plt.gca()
+    x = np.linspace(plt.xlim()[0], plt.xlim()[1], 30)
+    y = np.linspace(plt.ylim()[0], plt.ylim()[1], 30)
+    Y, X = np.meshgrid(y, x)
+    P = np.zeros_like(X)
+    for i, xi in enumerate(x):
+        for j, yj in enumerate(y):
+            P[i, j] = clf.decision_function([[xi, yj]])
+    # plot the margins
+    ax.contour(X, Y, P, colors='k',
+               levels=[-1, 0, 1], alpha=0.5,
+               linestyles=['--', '-', '--'])
+ 
+ 
