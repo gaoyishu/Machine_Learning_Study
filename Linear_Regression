@@ -1,6 +1,6 @@
-### Linear Regression and Gradient Descent.
+## Linear Regression and Gradient Descent. ##
 
-### import the library you need for analyze
+### import the library you need for analyze ###
 
 import pandas as pd 
 import numpy as np 
